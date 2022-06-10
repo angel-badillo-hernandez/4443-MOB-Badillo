@@ -13,17 +13,17 @@ import math
 description = """
 Quizzler API 🚀
 
-## Provides quiz questions for genuis people.
+## Provides quiz questions for high IQ people.
 """
 
 quizApp = FastAPI(
     title="Quiz questions extroidanaire",
     description=description,
     version="0.0.1",
-    terms_of_service="http://killzonmbieswith.us/terms/",
+    terms_of_service="http://killzombieswith.us/terms/",
     contact={
         "name": "Cha Cha Schwarzenegger",
-        "url": "http://killzonmbieswith.us/contact/",
+        "url": "http://killzombieswith.us/contact/",
         "email": "chacha@killzonmbieswith.us",
     },
     license_info={
@@ -91,7 +91,7 @@ class QuizBrain:
 
 class Question(BaseModel):
     question: str
-    answer: int
+    answer: bool
 
 
 Q = QuizBrain()
