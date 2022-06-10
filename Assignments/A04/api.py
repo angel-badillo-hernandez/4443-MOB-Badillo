@@ -48,33 +48,33 @@ class QuizBrain:
 
         self.id = 0
 
-    def setCurrent(self, n):
+    def setCurrent(self, n) -> None:
         """ Sets the current question id
         Params:
            (int) id : value from 0 to max question item
         """
         self.id = n
 
-    def getCurrentId(self):
+    def getCurrentId(self) -> int:
         return self.id
 
-    def nextQuestion(self):
+    def nextQuestion(self)-> int:
         self.id += 1
         return self.id
 
-    def numQuestions(self):
+    def numQuestions(self) -> int:
         return self.numQuestions
 
-    def getQuestionText(self):
+    def getQuestionText(self) -> str:
         return self.questions[self.id]['question']
 
-    def getCorrectAnswer(self):
+    def getCorrectAnswer(self) -> bool:
         return self.questions[self.id]['answer']
 
-    def isFinished(self):
+    def isFinished(self) -> bool:
         return self.id < len(self.questions)
 
-    def reset(self):
+    def reset(self) -> None:
         self.id = 0
 
     def addQuestion(self, question):
@@ -120,12 +120,35 @@ async def getQuestion():
         str: question text
     """
     question = None
-
-    question = Q.getQuestionText()
     id = Q.getCurrentId()
 
-    if question:
+    if id < Q.numQuestions: # Prevent out of bounds
+         question = Q.getQuestionText()
+
+    if not question is None: # If question exists
         return {"success": True, "id": id, "question": question}
+
+    return {"success": False}
+
+@quizApp.get("/answer/")
+async def getAnswer():
+    """
+    ### Description:
+        Get a question's answer
+    ### Params:
+        None
+    ### Returns:
+        bool answer value
+    """
+    answer = None
+    id = Q.getCurrentId()
+
+    if id < Q.numQuestions: # Prevent out of bounds
+        answer = Q.getCorrectAnswer()
+    
+
+    if not answer is None: # If answer exists
+        return {"success": True, "id": id, "answer": answer}
 
     return {"success": False}
 
@@ -141,10 +164,9 @@ async def next():
         int: question id
     """
     id = None
-
     id = Q.nextQuestion()
 
-    if id:
+    if id < Q.numQuestions: # Prevent going out of bounds
         return {"success": True, "id": id}, 200
 
     return {"success": False}
@@ -167,7 +189,7 @@ async def reset():
     id = Q.getCurrentId()
 
     if id == 0:
-        return {"success": True, "id": id}
+        return {"success": True, "id": id},200
 
     return {"success": False}
 
@@ -177,7 +199,7 @@ if __name__ == "__main__":
     #or
     #host="ip.add.ress" for server ip
     uvicorn.run("api:quizApp",
-                host="127.0.0.1",
+                host="127.0.0.1", # localhost
                 port=8888,
                 log_level="info",
                 reload=True)
