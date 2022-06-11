@@ -1,122 +1,122 @@
 [
-    {
-      "question": "Queen Elizabeth the 1st was the daughter of King Henry the 8th of England.",
-      "answer": true
-    },
-    {
-      "question": "Vitamin C is also known by the chemical name of Ascorbic Acid.",
-      "answer": true
-    },
-    {
-      "question": "The Nobel prize-winning novel 'The Old Man and the Sea' was written by the American author John Steinbeck.",
-      "answer": false
-    },
-    {
-      "question": "Rapper Nicki Minaj is over 180 cm (5 ft, 10.9 in) in height.",
-      "answer": false
-    },
-    {
-      "question": "In theory, it takes over 5,000 helium balloons to lift an average-sized human from the ground.",
-      "answer": true
-    },
-    {
-      "question": "The Pan American Highway in the U.S.A. is the world's longest highway",
-      "answer": true
-    },
-    {
-      "question": "Transylvania is a historical region located in central Romania.",
-      "answer": true
-    },
-    {
-      "question": "Disabled Valery Spiridonov was the first person in the world to have his head transplanted onto another body.",
-      "answer": false
-    },
-    {
-      "question": "The maximum length for a video posted on TikTok is 60 seconds",
-      "answer": false
-    },
-    {
-      "question": "Glass is manufactured mainly from processed sand.",
-      "answer": true
-    },
-    {
-      "question": "Actress Marilyn Monroe had 3 children resulting from her 3 marriages.",
-      "answer": false
-    },
-    {
-      "question": "Popping your finger or toe knuckles is bad for your joints.",
-      "answer": false
-    },
-    {
-      "question": "The Trojan horse was used by the Greeks to mask their way into the city of Troy and win the war.",
-      "answer": true
-    },
-    {
-      "question": "There are 6 naturally occurring noble gases in the periodic table of chemical elements.",
-      "answer": true
-    },
-    {
-      "question": "The liver is the largest organ in the human body.",
-      "answer": false
-    },
-    {
-      "question": "Singer and actress Miley Cyrus is an only child.",
-      "answer": false
-    },
-    {
-      "question": "There are over 30,000 varieties of apples existing in the world.",
-      "answer": true
-    },
-    {
-      "question": "Harry Potter's first flying broomstick is called Firebolt.",
-      "answer": false
-    },
-    {
-      "question": "The U.S.A.'s southernmost state is Texas.",
-      "answer": false
-    },
-    {
-      "question": "The world's earliest surviving motion-picture film dates back to 1888.",
-      "answer": true
-    },
-    {
-      "question": "Confucius is a world-renowned Latin philosopher.",
-      "answer": false
-    },
-    {
-      "question": "Footballer Cristiano Ronaldo is the most-followed person on Instagram and Facebook (in 2021).",
-      "answer": true
-    },
-    {
-      "question": "Insulin was discovered by physiologist and professor of medicine Nicolae Paulescu.",
-      "answer": true
-    },
-    {
-      "question": "Real Madrid football club's biggest rival is Atlético Madrid.",
-      "answer": false
-    },
-    {
-      "question": "After you drink alcohol, it takes your brain 6 minutes to start reacting to it.",
-      "answer": true
-    },
-    {
-      "question": "Thomas Jefferson was the second president of the U.S.A.",
-      "answer": false
-    },
-    {
-      "question": "There is no way of telling boiled eggs from raw eggs until you break them open.",
-      "answer": false
-    },
-    {
-      "question": "Dan Brown's novel 'Inferno' was inspired by Dante Alighieri's poem 'Inferno'.",
-      "answer": true
-    },
-    {
-      "question": "Singer Billie Eilish's full name is Billie Eilish Pirate Baird O'Connell.",
-      "answer": true
-    },
-    {
-      "question": "Manchester United football club has never won the UEFA Champions League trophy.",
-      "answer": false
-    }
-  ]
+  {
+    "question": "Queen Elizabeth the 1st was the daughter of King Henry the 8th of England.",
+    "answer": true
+  },
+  {
+    "question": "Vitamin C is also known by the chemical name of Ascorbic Acid.",
+    "answer": true
+  },
+  {
+    "question": "The Nobel prize-winning novel 'The Old Man and the Sea' was written by the American author John Steinbeck.",
+    "answer": false
+  },
+  {
+    "question": "Rapper Nicki Minaj is over 180 cm (5 ft, 10.9 in) in height.",
+    "answer": false
+  },
+  {
+    "question": "In theory, it takes over 5,000 helium balloons to lift an average-sized human from the ground.",
+    "answer": true
+  },
+  {
+    "question": "The Pan American Highway in the U.S.A. is the world's longest highway",
+    "answer": true
+  },
+  {
+    "question": "Transylvania is a historical region located in central Romania.",
+    "answer": true
+  },
+  {
+    "question": "Disabled Valery Spiridonov was the first person in the world to have his head transplanted onto another body.",
+    "answer": false
+  },
+  {
+    "question": "The maximum length for a video posted on TikTok is 60 seconds",
+    "answer": false
+  },
+  {
+    "question": "Glass is manufactured mainly from processed sand.",
+    "answer": true
+  },
+  {
+    "question": "Actress Marilyn Monroe had 3 children resulting from her 3 marriages.",
+    "answer": false
+  },
+  {
+    "question": "Popping your finger or toe knuckles is bad for your joints.",
+    "answer": false
+  },
+  {
+    "question": "The Trojan horse was used by the Greeks to mask their way into the city of Troy and win the war.",
+    "answer": true
+  },
+  {
+    "question": "There are 6 naturally occurring noble gases in the periodic table of chemical elements.",
+    "answer": true
+  },
+  {
+    "question": "The liver is the largest organ in the human body.",
+    "answer": false
+  },
+  {
+    "question": "Singer and actress Miley Cyrus is an only child.",
+    "answer": false
+  },
+  {
+    "question": "There are over 30,000 varieties of apples existing in the world.",
+    "answer": true
+  },
+  {
+    "question": "Harry Potter's first flying broomstick is called Firebolt.",
+    "answer": false
+  },
+  {
+    "question": "The U.S.A.'s southernmost state is Texas.",
+    "answer": false
+  },
+  {
+    "question": "The world's earliest surviving motion-picture film dates back to 1888.",
+    "answer": true
+  },
+  {
+    "question": "Confucius is a world-renowned Latin philosopher.",
+    "answer": false
+  },
+  {
+    "question": "Footballer Cristiano Ronaldo is the most-followed person on Instagram and Facebook (in 2021).",
+    "answer": true
+  },
+  {
+    "question": "Insulin was discovered by physiologist and professor of medicine Nicolae Paulescu.",
+    "answer": true
+  },
+  {
+    "question": "Real Madrid football club's biggest rival is Atlético Madrid.",
+    "answer": false
+  },
+  {
+    "question": "After you drink alcohol, it takes your brain 6 minutes to start reacting to it.",
+    "answer": true
+  },
+  {
+    "question": "Thomas Jefferson was the second president of the U.S.A.",
+    "answer": false
+  },
+  {
+    "question": "There is no way of telling boiled eggs from raw eggs until you break them open.",
+    "answer": false
+  },
+  {
+    "question": "Dan Brown's novel 'Inferno' was inspired by Dante Alighieri's poem 'Inferno'.",
+    "answer": true
+  },
+  {
+    "question": "Singer Billie Eilish's full name is Billie Eilish Pirate Baird O'Connell.",
+    "answer": true
+  },
+  {
+    "question": "Manchester United football club has never won the UEFA Champions League trophy.",
+    "answer": false
+  }
+]

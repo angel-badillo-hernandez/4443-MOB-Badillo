@@ -10,21 +10,17 @@ import sys
 import random
 import math
 
-description = """
-Quizzler API 🚀
-
-## Provides quiz questions for high IQ people.
-"""
-
 quizApp = FastAPI(
-    title="Quiz questions extroidanaire",
-    description=description,
+    title="Quizzler API for CMPS-4443-101 Platform Based App Deveplopment",
+    description="""Quizzler API 🚀
+## Provides quiz questions for high IQ people.
+""",
     version="0.0.1",
-    terms_of_service="http://killzombieswith.us/terms/",
+    terms_of_service="",
     contact={
-        "name": "Cha Cha Schwarzenegger",
-        "url": "http://killzombieswith.us/contact/",
-        "email": "chacha@killzonmbieswith.us",
+        "name": "Angel Badillo Hernandez",
+        "url": "https://it-is-legend27.repl.co",
+        "email": "badilloa022402@gmail.com"
     },
     license_info={
         "name": "Apache 2.0",
@@ -37,9 +33,9 @@ class QuizBrain:
 
     def __init__(self):
         """ Setup the quiz brain class which opens a json file of questions and 
-            loads them into our class. 
+            loads them into our class. cd
         """
-        with open("questions.json") as f:
+        with open(".\questions.json") as f:
             self.questions = json.load(f)
 
         print(self.questions)
@@ -58,7 +54,7 @@ class QuizBrain:
     def getCurrentId(self) -> int:
         return self.id
 
-    def nextQuestion(self)-> int:
+    def nextQuestion(self) -> int:
         self.id += 1
         return self.id
 
@@ -79,14 +75,12 @@ class QuizBrain:
 
     def addQuestion(self, question):
         self.questions.append(question)
+        self.numQuestions += 1
 
-
-"""
-  ___  ___  _   _ _____ ___ ___ 
- | _ \/ _ \| | | |_   _| __/ __|
- |   / (_) | |_| | | | | _|\__ \
- |_|_\\___/ \___/  |_| |___|___/
-"""
+#   ___  ___  _   _ _____ ___ ___
+#  | _ \/ _ \| | | |_   _| __/ __|
+#  |   / (_) | |_| | | | | _|\__ \
+#  |_|_\\___/ \___/  |_| |___|___/
 
 
 class Question(BaseModel):
@@ -104,7 +98,15 @@ async def docs_redirect():
 
 @quizApp.post("/question/")
 async def addQuestion(question: Question):
-    Q.addQuestion(question)
+    """
+    ### Description:
+        Get a quiz question
+    ### Params:
+        None
+    ### Returns:
+        str: question text
+    """
+    Q.addQuestion(question.dict())
     print(Q.questions)
     return Q.questions
 
@@ -122,13 +124,36 @@ async def getQuestion():
     question = None
     id = Q.getCurrentId()
 
-    if id < Q.numQuestions: # Prevent out of bounds
-         question = Q.getQuestionText()
+    if id < Q.numQuestions:  # Prevent out of bounds
+        question = Q.getQuestionText()
 
-    if not question is None: # If question exists
+    if not question is None:  # If question exists
         return {"success": True, "id": id, "question": question}
 
     return {"success": False}
+
+
+@quizApp.get("/question_at/")
+async def getQuestionAt(id: int):
+    """
+    ### Description:
+        Get a quiz question at a specific index
+    ### Params:
+        int: id
+    ### Returns:
+        str: question text
+    """
+    question = None
+    id = id
+
+    if id < Q.numQuestions:  # Prevent out of bounds
+        question = Q.questions[id]["question"]
+
+    if not question is None:  # If question exists
+        return {"success": True, "id": id, "question": question}
+
+    return {"success": False}
+
 
 @quizApp.get("/answer/")
 async def getAnswer():
@@ -138,16 +163,37 @@ async def getAnswer():
     ### Params:
         None
     ### Returns:
-        bool answer value
+        bool: answer value
     """
     answer = None
     id = Q.getCurrentId()
 
-    if id < Q.numQuestions: # Prevent out of bounds
+    if id < Q.numQuestions:  # Prevent out of bounds
         answer = Q.getCorrectAnswer()
-    
 
-    if not answer is None: # If answer exists
+    if not answer is None:  # If answer exists
+        return {"success": True, "id": id, "answer": answer}
+
+    return {"success": False}
+
+
+@quizApp.get("/answer_at/")
+async def getAnswerAt(id: int):
+    """
+    ### Description:
+        Get a question's answer at an index
+    ### Params:
+        int: id
+    ### Returns:
+        bool: answer value
+    """
+    answer = None
+    id = id
+
+    if id < Q.numQuestions:  # Prevent out of bounds
+        answer = Q.questions[id]["answer"]
+
+    if not answer is None:  # If answer exists
         return {"success": True, "id": id, "answer": answer}
 
     return {"success": False}
@@ -166,7 +212,7 @@ async def next():
     id = None
     id = Q.nextQuestion()
 
-    if id < Q.numQuestions: # Prevent going out of bounds
+    if id < Q.numQuestions:  # Prevent going out of bounds
         return {"success": True, "id": id}, 200
 
     return {"success": False}
@@ -189,17 +235,17 @@ async def reset():
     id = Q.getCurrentId()
 
     if id == 0:
-        return {"success": True, "id": id},200
+        return {"success": True, "id": id}, 200
 
     return {"success": False}
 
 
 if __name__ == "__main__":
-    #host="0.0.0.0" for running on server with domain name
-    #or
-    #host="ip.add.ress" for server ip
+    # host="0.0.0.0" for running on server with domain name
+    # or
+    # host="ip.add.ress" for server ip
     uvicorn.run("api:quizApp",
-                host="127.0.0.1", # localhost
+                host="127.0.0.1",  # localhost
                 port=8888,
                 log_level="info",
                 reload=True)
