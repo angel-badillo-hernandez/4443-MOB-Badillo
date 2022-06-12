@@ -239,13 +239,30 @@ async def reset():
 
     return {"success": False}
 
+@quizApp.get("/finished/")
+async def reset():
+    """
+    ### Description:
+        Check if the end of the quiz is reached. 
+    ### Params:
+        None
+    ### Returns:
+        bool
+    """
+    id = None
+    id = Q.getCurrentId()
+
+    if id >= (Q.numQuestions-1):
+        return {"success": True, "isFinished": True}, 200
+
+    return {"success": False}
 
 if __name__ == "__main__":
     # host="0.0.0.0" for running on server with domain name
     # or
     # host="ip.add.ress" for server ip
     uvicorn.run("api:quizApp",
-                host="127.0.0.1",  # localhost
+                host="localhost",  # localhost - 127.0.0.1
                 port=8888,
                 log_level="info",
                 reload=True)
