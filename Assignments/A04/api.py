@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from rich import print
 
@@ -68,7 +68,7 @@ class QuizBrain:
         return self.questions[self.id]['answer']
 
     def isFinished(self) -> bool:
-        return self.id < len(self.questions)
+        return self.id >= len(self.questions)
 
     def reset(self) -> None:
         self.id = 0
@@ -127,10 +127,11 @@ async def getQuestion():
     if id < Q.numQuestions:  # Prevent out of bounds
         question = Q.getQuestionText()
 
-    if not question is None:  # If question exists
-        return {"success": True, "id": id, "question": question}
+    if question is None:  # Raise error
+        raise HTTPException(status_code=404, detail="Item not found")
+        
 
-    return {"success": False}
+    return {"id": id, "question": question}
 
 
 @quizApp.get("/question_at/")
@@ -149,10 +150,10 @@ async def getQuestionAt(id: int):
     if id < Q.numQuestions:  # Prevent out of bounds
         question = Q.questions[id]["question"]
 
-    if not question is None:  # If question exists
-        return {"success": True, "id": id, "question": question}
-
-    return {"success": False}
+    if question is None:  # Raise error
+        raise HTTPException(status_code=404, detail="Item not found")
+        
+    return {"id": id, "question": question}
 
 
 @quizApp.get("/answer/")
@@ -171,10 +172,10 @@ async def getAnswer():
     if id < Q.numQuestions:  # Prevent out of bounds
         answer = Q.getCorrectAnswer()
 
-    if not answer is None:  # If answer exists
-        return {"success": True, "id": id, "answer": answer}
-
-    return {"success": False}
+    if answer is None:  # Raise error
+        raise HTTPException(status_code=404, detail="Item not found")
+        
+    return {"success": True, "id": id, "answer": answer}
 
 
 @quizApp.get("/answer_at/")
@@ -193,10 +194,10 @@ async def getAnswerAt(id: int):
     if id < Q.numQuestions:  # Prevent out of bounds
         answer = Q.questions[id]["answer"]
 
-    if not answer is None:  # If answer exists
-        return {"success": True, "id": id, "answer": answer}
-
-    return {"success": False}
+    if answer is None:  # Raise error
+        raise HTTPException(status_code=404, detail="Item not found")
+        
+    return {"success": True, "id": id, "answer": answer}
 
 
 @quizApp.get("/next/")
@@ -213,9 +214,9 @@ async def next():
     id = Q.nextQuestion()
 
     if id < Q.numQuestions:  # Prevent going out of bounds
-        return {"success": True, "id": id}, 200
+        raise HTTPException(status_code=404, detail="Item not found")
 
-    return {"success": False}
+    return {"id": id}
 
 
 @quizApp.get("/reset/")
@@ -234,10 +235,10 @@ async def reset():
 
     id = Q.getCurrentId()
 
-    if id == 0:
-        return {"success": True, "id": id}, 200
+    if id != 0: # Raise error, (this should never happen though)
+        raise HTTPException(status_code=404, detail="Item not found")
 
-    return {"success": False}
+    return {"id": id}
 
 @quizApp.get("/finished/")
 async def reset():
@@ -249,13 +250,13 @@ async def reset():
     ### Returns:
         bool
     """
-    id = None
-    id = Q.getCurrentId()
+    isFinished = None
+    isFinished = Q.isFinished()
 
-    if id >= (Q.numQuestions-1):
-        return {"success": True, "isFinished": True}, 200
+    if isFinished is None: # Raise error (this should never happen)
+        raise HTTPException(status_code=404, detail="Item not found")
 
-    return {"success": False}
+    return {"isFinished": isFinished}
 
 if __name__ == "__main__":
     # host="0.0.0.0" for running on server with domain name
