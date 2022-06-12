@@ -27,7 +27,7 @@ quizApp = FastAPI(
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
 )
-
+host:str = "localhost"
 
 class QuizBrain:
 
@@ -213,7 +213,7 @@ async def next():
     id = None
     id = Q.nextQuestion()
 
-    if id < Q.numQuestions:  # Prevent going out of bounds
+    if id > Q.numQuestions:  # Prevent going out of bounds
         raise HTTPException(status_code=404, detail="Item not found")
 
     return {"id": id}
@@ -263,7 +263,7 @@ if __name__ == "__main__":
     # or
     # host="ip.add.ress" for server ip
     uvicorn.run("api:quizApp",
-                host="localhost",  # localhost - 127.0.0.1
+                host=host,  # localhost - 127.0.0.1
                 port=8888,
                 log_level="info",
                 reload=True)
