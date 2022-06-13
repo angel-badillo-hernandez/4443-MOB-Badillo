@@ -13,8 +13,8 @@ import sys
 import random
 import math
 
-host:str = "localhost"
-port:int = 8080
+host: str = "localhost"
+port: int = 8080
 
 quizApp = FastAPI(
     title="Quizzler API for CMPS-4443-101 Platform Based App Deveplopment",
@@ -33,6 +33,7 @@ quizApp = FastAPI(
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
 )
+
 
 class QuizBrain:
     def __init__(self):
@@ -72,7 +73,7 @@ class QuizBrain:
         return self.questions[self.id]['answer']
 
     def isFinished(self) -> bool:
-        return self.id >= len(self.questions) -1
+        return self.id >= len(self.questions) - 1
 
     def reset(self) -> None:
         self.id = 0
@@ -133,7 +134,6 @@ async def getQuestion():
 
     if question is None:  # Raise error
         raise HTTPException(status_code=404, detail="Item not found")
-        
 
     return {"id": id, "question": question}
 
@@ -156,7 +156,7 @@ async def getQuestionAt(id: int):
 
     if question is None:  # Raise error
         raise HTTPException(status_code=404, detail="Item not found")
-        
+
     return {"id": id, "question": question}
 
 
@@ -178,7 +178,7 @@ async def getAnswer():
 
     if answer is None:  # Raise error
         raise HTTPException(status_code=404, detail="Item not found")
-        
+
     return {"success": True, "id": id, "answer": answer}
 
 
@@ -200,7 +200,7 @@ async def getAnswerAt(id: int):
 
     if answer is None:  # Raise error
         raise HTTPException(status_code=404, detail="Item not found")
-        
+
     return {"success": True, "id": id, "answer": answer}
 
 
@@ -239,10 +239,11 @@ async def reset():
 
     id = Q.getCurrentId()
 
-    if id != 0: # Raise error, (this should never happen though)
+    if id != 0:  # Raise error, (this should never happen though)
         raise HTTPException(status_code=404, detail="Item not found")
 
     return {"id": id}
+
 
 @quizApp.get("/finished/")
 async def isFinished():
@@ -257,10 +258,11 @@ async def isFinished():
     isFinished = None
     isFinished = Q.isFinished()
 
-    if isFinished is None: # Raise error (this should never happen)
+    if isFinished is None:  # Raise error (this should never happen)
         raise HTTPException(status_code=404, detail="Item not found")
 
     return {"isFinished": isFinished}
+
 
 @quizApp.get("/num_question/")
 async def numQuestions():
@@ -275,7 +277,7 @@ async def numQuestions():
     numQuestions = None
     numQuestions = Q.numQuestions
 
-    if numQuestions is None: # Raise error (this should never happen)
+    if numQuestions is None:  # Raise error (this should never happen)
         raise HTTPException(status_code=404, detail="Item not found")
     return {"amount": numQuestions}
 
