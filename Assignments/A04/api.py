@@ -13,7 +13,7 @@ import sys
 import random
 import math
 
-host:str = "192.168.1.76"
+host:str = "localhost"
 port:int = 8080
 
 quizApp = FastAPI(
@@ -266,7 +266,7 @@ async def isFinished():
 async def numQuestions():
     """
     ### Description:
-        Check if the end of the quiz is reached. 
+        Return the amount of questions.
     ### Params:
         None
     ### Returns:
