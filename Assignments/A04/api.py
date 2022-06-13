@@ -10,6 +10,9 @@ import sys
 import random
 import math
 
+host:str = "192.168.1.76"
+port:int = 8080
+
 quizApp = FastAPI(
     title="Quizzler API for CMPS-4443-101 Platform Based App Deveplopment",
     description="""Quizzler API 🚀
@@ -27,15 +30,13 @@ quizApp = FastAPI(
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
 )
-host:str = "localhost"
 
 class QuizBrain:
-
     def __init__(self):
         """ Setup the quiz brain class which opens a json file of questions and 
             loads them into our class. cd
         """
-        with open(".\questions.json") as f:
+        with open("questions.json") as f:
             self.questions = json.load(f)
 
         print(self.questions)
@@ -68,7 +69,7 @@ class QuizBrain:
         return self.questions[self.id]['answer']
 
     def isFinished(self) -> bool:
-        return self.id >= len(self.questions)
+        return self.id >= len(self.questions) -1
 
     def reset(self) -> None:
         self.id = 0
@@ -241,7 +242,7 @@ async def reset():
     return {"id": id}
 
 @quizApp.get("/finished/")
-async def reset():
+async def isFinished():
     """
     ### Description:
         Check if the end of the quiz is reached. 
@@ -258,12 +259,29 @@ async def reset():
 
     return {"isFinished": isFinished}
 
+@quizApp.get("/num_question/")
+async def numQuestions():
+    """
+    ### Description:
+        Check if the end of the quiz is reached. 
+    ### Params:
+        None
+    ### Returns:
+        int: amount of questions
+    """
+    numQuestions = None
+    numQuestions = Q.numQuestions
+
+    if numQuestions is None: # Raise error (this should never happen)
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"amount": numQuestions}
+
 if __name__ == "__main__":
     # host="0.0.0.0" for running on server with domain name
     # or
     # host="ip.add.ress" for server ip
     uvicorn.run("api:quizApp",
-                host=host,  # localhost - 127.0.0.1
-                port=8888,
+                host=host,
+                port=port,
                 log_level="info",
                 reload=True)
