@@ -1,11 +1,12 @@
 # Angel Badillo Hernandez
 # CMPS-4443-101
-# A04 - Quizzler w/FastAPI
+# P04 - Quizzler w/FastAPI
 from typing import Optional
 from pydantic import BaseModel
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from rich import print
 
 import json
@@ -34,6 +35,13 @@ quizApp = FastAPI(
     },
 )
 
+quizApp.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class QuizBrain:
     def __init__(self):
