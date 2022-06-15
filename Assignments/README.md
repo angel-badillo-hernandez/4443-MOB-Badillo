@@ -2,4 +2,4 @@
 
 |   #   | Folder Link | Assignment Description                 |
 | :---: | ----------- | -------------------------------------- |
-|   1   | [A04](A04)  | Quizzler w/FASTAPI                     |
+|   1   | [P01](P01)  | Quizzler w/FASTAPI                     |
