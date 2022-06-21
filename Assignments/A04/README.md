@@ -1,5 +1,5 @@
 ## Assignment  4 - Final Project Proposal
-## Sword Quest AR Online
+## Sword Quest Online AR
 ### Inspiration:
 My inspiration for this app is the hit mobile game, Pokemon Go, and the virtual reality based light novel / anime series, Sword Art Online.
 - **Needs**: must have this ability or system will not be useful.
