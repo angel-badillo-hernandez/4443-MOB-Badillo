@@ -1,6 +1,6 @@
 # Angel Badillo Hernandez
 # CMPS-4443-101
-# P01 - Quizzler w/FastAPI
+# P01 - Quizzical w/FastAPI
 from typing import Optional
 from pydantic import BaseModel
 import uvicorn
@@ -18,8 +18,8 @@ host: str = "localhost"
 port: int = 8080
 
 quizApp = FastAPI(
-    title="Quizzler API for CMPS-4443-101 Platform Based App Deveplopment",
-    description="""Quizzler API 🚀
+    title="Quizzical API for CMPS-4443-101 Platform Based App Deveplopment",
+    description="""Quizzical API 🚀
 ## Provides quiz questions for high IQ people.
 """,
     version="0.0.1",
@@ -43,48 +43,26 @@ quizApp.add_middleware(
     allow_headers=["*"],
 )
 
-class QuizBrain:
+class QuizControl:
     def __init__(self):
-        """ Setup the quiz brain class which opens a json file of questions and 
-            loads them into our class. cd
+        """ Setup the quiz control class which opens a json file of questions and 
+            loads them into our class.
         """
-        with open("questions.json") as f:
+        with open("Assignments\P01\questions.json") as f:
             self.questions = json.load(f)
 
         print(self.questions)
 
         self.numQuestions = len(self.questions)
 
-        self.id = 0
-
-    def setCurrent(self, n) -> None:
-        """ Sets the current question id
-        Params:
-           (int) id : value from 0 to max question item
-        """
-        self.id = n
-
-    def getCurrentId(self) -> int:
-        return self.id
-
-    def nextQuestion(self) -> int:
-        self.id += 1
-        return self.id
-
     def numQuestions(self) -> int:
         return self.numQuestions
 
-    def getQuestionText(self) -> str:
-        return self.questions[self.id]['question']
+    def getQuestionText(self, id:int) -> str:
+        return self.questions[id]['question']
 
-    def getCorrectAnswer(self) -> bool:
-        return self.questions[self.id]['answer']
-
-    def isFinished(self) -> bool:
-        return self.id >= len(self.questions) - 1
-
-    def reset(self) -> None:
-        self.id = 0
+    def getCorrectAnswer(self, id:int) -> bool:
+        return self.questions[id]['answer']
 
     def addQuestion(self, question):
         self.questions.append(question)
@@ -101,7 +79,7 @@ class Question(BaseModel):
     answer: bool
 
 
-Q = QuizBrain()
+Q = QuizControl()
 
 
 @quizApp.get("/")
@@ -123,30 +101,7 @@ async def addQuestion(question: Question):
     print(Q.questions)
     return Q.questions
 
-
 @quizApp.get("/question/")
-async def getQuestion():
-    """
-    ### Description:
-        Get a quiz question
-    ### Params:
-        None
-    ### Returns:
-        str: question text
-    """
-    question = None
-    id = Q.getCurrentId()
-
-    if id < Q.numQuestions:  # Prevent out of bounds
-        question = Q.getQuestionText()
-
-    if question is None:  # Raise error
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    return {"id": id, "question": question}
-
-
-@quizApp.get("/question_at/")
 async def getQuestionAt(id: int):
     """
     ### Description:
@@ -157,40 +112,16 @@ async def getQuestionAt(id: int):
         str: question text
     """
     question = None
-    id = id
 
     if id < Q.numQuestions:  # Prevent out of bounds
-        question = Q.questions[id]["question"]
+        question = Q.getQuestionText(id)
 
     if question is None:  # Raise error
         raise HTTPException(status_code=404, detail="Item not found")
 
     return {"id": id, "question": question}
 
-
 @quizApp.get("/answer/")
-async def getAnswer():
-    """
-    ### Description:
-        Get a question's answer
-    ### Params:
-        None
-    ### Returns:
-        bool: answer value
-    """
-    answer = None
-    id = Q.getCurrentId()
-
-    if id < Q.numQuestions:  # Prevent out of bounds
-        answer = Q.getCorrectAnswer()
-
-    if answer is None:  # Raise error
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    return {"success": True, "id": id, "answer": answer}
-
-
-@quizApp.get("/answer_at/")
 async def getAnswerAt(id: int):
     """
     ### Description:
@@ -201,76 +132,14 @@ async def getAnswerAt(id: int):
         bool: answer value
     """
     answer = None
-    id = id
 
     if id < Q.numQuestions:  # Prevent out of bounds
-        answer = Q.questions[id]["answer"]
+        answer = Q.getCorrectAnswer(id)
 
     if answer is None:  # Raise error
         raise HTTPException(status_code=404, detail="Item not found")
 
     return {"success": True, "id": id, "answer": answer}
-
-
-@quizApp.get("/next/")
-async def next():
-    """
-    ### Description:
-        Increment current question id
-    ### Params:
-        None
-    ### Returns:
-        int: question id
-    """
-    id = None
-    id = Q.nextQuestion()
-
-    if id > Q.numQuestions:  # Prevent going out of bounds
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    return {"id": id}
-
-
-@quizApp.get("/reset/")
-async def reset():
-    """
-    ### Description:
-        Reset id to 0 
-    ### Params:
-        None
-    ### Returns:
-        bool
-    """
-    id = None
-
-    Q.reset()
-
-    id = Q.getCurrentId()
-
-    if id != 0:  # Raise error, (this should never happen though)
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    return {"id": id}
-
-
-@quizApp.get("/finished/")
-async def isFinished():
-    """
-    ### Description:
-        Check if the end of the quiz is reached. 
-    ### Params:
-        None
-    ### Returns:
-        bool
-    """
-    isFinished = None
-    isFinished = Q.isFinished()
-
-    if isFinished is None:  # Raise error (this should never happen)
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    return {"isFinished": isFinished}
-
 
 @quizApp.get("/num_question/")
 async def numQuestions():
