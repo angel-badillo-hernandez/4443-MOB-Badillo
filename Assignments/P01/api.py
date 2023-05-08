@@ -48,7 +48,7 @@ class QuizControl:
         """ Setup the quiz control class which opens a json file of questions and 
             loads them into our class.
         """
-        with open("Assignments\P01\questions.json") as f:
+        with open("C:\\Users\\badil\\4443-MOB-Badillo\\Assignments\P01\questions.json") as f:
             self.questions = json.load(f)
 
         print(self.questions)
